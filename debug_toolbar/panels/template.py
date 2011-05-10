@@ -80,10 +80,10 @@ class TemplateDebugPanel(DebugPanel):
             # Skip templates that we are generating through the debug toolbar.
             if template.name.startswith('debug_toolbar/'):
                 continue
-            if template.origin and template.origin.name:
-                template.origin_name = template.origin.name
-            else:
-                template.origin_name = 'No origin'
+            template.origin_name = 'No origin'
+            if hasattr(template, 'origin'):
+                if template.origin and template.origin.name:
+                    template.origin_name = template.origin.name
             info['template'] = template
             # Clean up context for better readability
             if getattr(settings, 'DEBUG_TOOLBAR_CONFIG', {}).get('SHOW_TEMPLATE_CONTEXT', True):
